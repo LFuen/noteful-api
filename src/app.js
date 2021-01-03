@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const { CLIENT_ORIGIN } = require("./config");
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const foldersRouter = require('./folders/folders-router')
@@ -16,7 +17,7 @@ const morganOption = (NODE_ENV === 'production')
 
 app.use(morgan(morganOption))
 app.use(helmet())
-app.use(cors())
+app.use(cors({ origin: CLIENT_ORIGIN }))
 app.use(express.json())
 
 app.use('/folders', foldersRouter)
